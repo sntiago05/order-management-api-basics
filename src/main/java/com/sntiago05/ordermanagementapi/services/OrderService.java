@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -45,9 +46,16 @@ public class OrderService {
         return OrderMapper.toResponse(orderRepository.save(order));
     }
 
+
+    public List<OrderResponse> findAllOrders() {
+        return orderRepository.findAllOrdersWithItemsAndProducts().stream().map(OrderMapper::toResponse).toList();
+    }
+
+
     private Customer getCustomer(OrderCreateRequest orderCreateRequest) {
         return customerRepository.findById(orderCreateRequest.CustomerId()).orElseThrow(() -> new RuntimeException("Customer not found"));
     }
+
 
     private Product tryToDecreaseStock(Long productId, Integer quantity) {
         Product product = productRepository.findByIdForUpdate(productId).orElseThrow(() -> new RuntimeException("Product not found"));
