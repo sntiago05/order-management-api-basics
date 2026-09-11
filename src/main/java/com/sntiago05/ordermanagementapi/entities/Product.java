@@ -22,6 +22,9 @@ public class Product {
     private BigDecimal price;
     private Integer stock;
 
+    @Version
+    private Long version;
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Product product)) return false;

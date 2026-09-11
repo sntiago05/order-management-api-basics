@@ -1,7 +1,6 @@
 package com.sntiago05.ordermanagementapi.services;
 
-import com.sntiago05.ordermanagementapi.dto.OrderCreateRequest;
-import com.sntiago05.ordermanagementapi.dto.OrderResponse;
+import com.sntiago05.ordermanagementapi.dto.*;
 import com.sntiago05.ordermanagementapi.entities.Customer;
 import com.sntiago05.ordermanagementapi.entities.Order;
 import com.sntiago05.ordermanagementapi.entities.OrderItem;
@@ -51,6 +50,12 @@ public class OrderService {
         return orderRepository.findAllOrdersWithItemsAndProducts().stream().map(OrderMapper::toResponse).toList();
     }
 
+    public List<OrderSummaryResponse> findAllOrdersHeaders() {
+        return orderRepository.findAllOrdersHeaders();
+    }
+
+
+
 
     private Customer getCustomer(OrderCreateRequest orderCreateRequest) {
         return customerRepository.findById(orderCreateRequest.CustomerId()).orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -63,6 +68,8 @@ public class OrderService {
         product.setStock(product.getStock() - quantity);
         return product;
     }
+
+
 
 
 }

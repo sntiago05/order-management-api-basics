@@ -2,6 +2,7 @@ package com.sntiago05.ordermanagementapi.controller;
 
 import com.sntiago05.ordermanagementapi.dto.OrderCreateRequest;
 import com.sntiago05.ordermanagementapi.dto.OrderResponse;
+import com.sntiago05.ordermanagementapi.dto.OrderSummaryResponse;
 import com.sntiago05.ordermanagementapi.services.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
-public class OrdenController {
+public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
@@ -24,5 +25,10 @@ public class OrdenController {
     @GetMapping
     public ResponseEntity<List<OrderResponse>> findAllOrders() {
         return ResponseEntity.ok(orderService.findAllOrders());
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<List<OrderSummaryResponse>> findAllOrdersSummary() {
+        return ResponseEntity.ok(orderService.findAllOrdersHeaders());
     }
 }
