@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 @Validated
 public class ProductController {
@@ -21,5 +21,6 @@ public class ProductController {
     public ResponseEntity<UpdateStockResponse> updateStock(@Valid @RequestBody UpdateStockRequest request, @Positive(message = "id must be greater than 0") @PathVariable long id) {
         return ResponseEntity.ok(productService.updateStock(request, id));
     }
+
 
 }

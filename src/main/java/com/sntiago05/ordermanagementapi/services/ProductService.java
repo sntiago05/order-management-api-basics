@@ -4,7 +4,6 @@ import com.sntiago05.ordermanagementapi.dto.UpdateStockRequest;
 import com.sntiago05.ordermanagementapi.dto.UpdateStockResponse;
 import com.sntiago05.ordermanagementapi.entities.Product;
 import com.sntiago05.ordermanagementapi.mapper.ProductMapper;
-import com.sntiago05.ordermanagementapi.repositories.OrderRepository;
 import com.sntiago05.ordermanagementapi.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,7 @@ public class ProductService {
     public UpdateStockResponse updateStock(UpdateStockRequest updateStockRequest, Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
         product.setStock(updateStockRequest.stock());
+        productRepository.flush();
         return ProductMapper.toResponse(product);
     }
 }
