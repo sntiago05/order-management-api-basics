@@ -18,7 +18,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UpdateStockResponse> updateStock(@Valid @RequestBody UpdateStockRequest request, @Positive(message = "id must be greater than 0") @PathVariable long id) {
+    public ResponseEntity<UpdateStockResponse> updateStock(@Valid @RequestBody UpdateStockRequest request, @Positive(message = "id must be greater than 0") @PathVariable long id) throws InterruptedException {
         return ResponseEntity.ok(productService.updateStock(request, id));
     }
 
